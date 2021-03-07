@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CreateSubscriptionController extends Controller
 {
-    public function create(Request $request): JsonResponse
+    public function subscribe(Request $request): JsonResponse
     {
         try {
             $validator = Validator::make($request->all(), [
-                'url'   => 'required|max:255'
+                'url'   => 'required|url|max:250'
             ]);
 
             if ($validator->fails()) {
@@ -31,8 +31,8 @@ class CreateSubscriptionController extends Controller
             Subscriber::createNewSubscription($data);
 
             return response()->json($data, 201);
-        } catch (\Throwable $th) {
-            throw $th;
+        } catch (\JsonException $e) {
+            return response()->json([], 400);
         }
     }
 }

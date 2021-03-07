@@ -21,6 +21,11 @@ class Subscriber
         return new static($subscriber);
     }
 
+    public static function getSubscribersByTopic($topic)
+    {
+        return Model::where('topic', $topic)->get();
+    }
+
     public function getId(): string
     {
         return $this->model->id;

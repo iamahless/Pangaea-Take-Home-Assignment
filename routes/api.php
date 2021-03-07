@@ -20,10 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Subscriber routes
 Route::group(['namespace' => 'Subscriber'], function () {
-    Route::post('/subscribe/{topic}', 'CreateSubscriptionController@create')->name('create-subscription');
+    Route::post('/subscribe/{topic}', 'CreateSubscriptionController@subscribe')->name('create-subscription');
 });
 
 // Publisher routes
 Route::group(['namespace' => 'Publisher'], function () {
-    Route::post('/publish/{topic}', 'PublishMessageController@create')->name('publish-message');
+    Route::post('/publish/{topic}', 'PublishMessageController@publish')->name('publish-message');
 });
