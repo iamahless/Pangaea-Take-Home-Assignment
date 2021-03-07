@@ -30,7 +30,10 @@ class PublishMessageController extends Controller
                 foreach ($subscribers as $subscriber) {
                     WebhookCall::create()
                         ->url($subscriber->url)
-                        ->payload($request->all())
+                        ->payload([
+                            "topic" => $request->topic,
+                            "data"  => $request->all()
+                            ])
                         ->useSecret('pangaea-secret')
                         ->dispatch();
                 }
@@ -38,7 +41,7 @@ class PublishMessageController extends Controller
 
             $data = [
                 'message'   => count($subscribers) .' Subscribers were notified',
-                $request->all()
+                "data" => $request->all()
             ];
 
             return response()->json($data, 200);
